@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>Tic-Tac-Toe!</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var spots = {a1:'', a2:'', a3:'',
+                   b1:'', b2:'', b3:'',
+                   c1:'', c2:'', c3:'' }
+
+      var winningColumns =  [['a1', 'a2', 'a3'],['b1', 'b2', 'b3'],['c1', 'c2', 'c3'],
+                            ['a1', 'b1', 'c1'],['a2', 'b2', 'c2'],['a3', 'b3', 'c3'],
+                            ['a1', 'b2', 'c3'],['a3', 'b2', 'c1']]
+
+      var playerOne = ""
+      var playerTwo = ""
+      var currentUser = ""
+
+      function greetPlayers() {
+        playerOne = prompt("Welcome to Tic-Tac-Toe! What is your name?");
+          if (playerOne){
+            alert("Welcome " + playerOne + "! You're 'X'!");
+          }
+          playerTwo = prompt("Hello challenger!  What is your name?");
+          if (playerTwo){
+            alert("Great! " + playerTwo + " you're 'O'! Let the game begin!");
+          }
+        currentUser = playerOne
+      }
+
+    function takeTurn(spot){
+      if (currentUser == playerOne){
+        spots[spot] = 'X';
+        $('#' + spot).html('X');
+        $('#' + spot).prop('disabled', true);
+        currentUser = playerTwo;
+      }
+      else {
+       spots[spot] = 'O';
+       $('#' + spot).html('O');
+       $('#' + spot).prop('disabled', true);
+       currentUser = playerOne;
+      }
+      if (!checkForWin()){
+        true
+      }
+    }
+
+    function checkForWin(){
+      for (var i = 0; i < winningColumns.length; i++){
+        if (spots[winningColumns[i][0]] === spots[winningColumns[i][1]] && spots[winningColumns[i][1]] === spots[winningColumns[i][2]] && spots[winningColumns[i][0]] !== ""){
+          alert(currentUser + "you win!");
+          return true
+        }
+      }
+      return false
+    }
+
+    $(function(){
+      greetPlayers();
+
+      $("button").on("click", function(){
+        takeTurn($(this).attr('id'));
+      });
+    });
+
+
+    </script>
+  </head>
+  <body>
+    <p>TIC*TAC*TOE</p>
+    <table>
+      <tr>
+        <td><button type="button" id="a1">:)</button></td>
+        <td><button type="button" id="a2">:)</button></td>
+        <td><button type="button" id="a3">:)</button></td>
+      </tr>
+      <tr>
+        <td><button type="button" id="b1">:)</button></td>
+        <td><button type="button" id="b2">:)</button></td>
+        <td><button type="button" id="b3">:)</button></td>
+      </tr>
+      <tr>
+        <td><button type="button" id="c1">:)</button></td>
+        <td><button type="button" id="c2">:)</button></td>
+        <td><button type="button" id="c3">:)</button></td>
+      </tr>
+    </table>
+  </body>
+</html>
