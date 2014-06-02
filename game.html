@@ -11,64 +11,63 @@
                             ['a1', 'b1', 'c1'],['a2', 'b2', 'c2'],['a3', 'b3', 'c3'],
                             ['a1', 'b2', 'c3'],['a3', 'b2', 'c1']]
 
-      var playerOne = ""
-      var playerTwo = ""
+      var playerOne = "Player 1"
+      var playerTwo = "Player 2"
       var currentUser = ""
 
       function greetPlayers() {
-        playerOne = prompt("Welcome to Tic-Tac-Toe! What is your name?");
-          if (playerOne){
-            alert("Welcome " + playerOne + "! You're 'X'!");
-          }
-          playerTwo = prompt("Hello challenger!  What is your name?");
-          if (playerTwo){
-            alert("Great! " + playerTwo + " you're 'O'! Let the game begin!");
-          }
+        alert("Welcome to Tic-Tac-Toe! Player 1 you are 'X' and Player 2 you are 'O'.  Player 1, you're up, let the game begin!");
         currentUser = playerOne
       }
 
-    function takeTurn(spot){
-      if (currentUser == playerOne){
-        spots[spot] = 'X';
-        $('#' + spot).html('X');
-        $('#' + spot).prop('disabled', true);
-        currentUser = playerTwo;
-      }
-      else {
-       spots[spot] = 'O';
-       $('#' + spot).html('O');
-       $('#' + spot).prop('disabled', true);
-       currentUser = playerOne;
-      }
-      if (!checkForWin()){
-        true
-      }
-    }
-
-    function checkForWin(){
-      for (var i = 0; i < winningColumns.length; i++){
-        if (spots[winningColumns[i][0]] === spots[winningColumns[i][1]] && spots[winningColumns[i][1]] === spots[winningColumns[i][2]] && spots[winningColumns[i][0]] !== ""){
-          alert(currentUser + "you win!");
-          return true
+      function takeTurn(spot){
+        if (currentUser == playerOne){
+          spots[spot] = 'X';
+          $('#' + spot).html('X');
+          $('#' + spot).prop('disabled', true);
+          if (!checkForWin()){
+            true
+          }
+          currentUser = playerTwo;
+        }
+        else {
+         spots[spot] = 'O';
+         $('#' + spot).html('O');
+         $('#' + spot).prop('disabled', true);
+         if (!checkForWin()){
+          true
+        }
+         currentUser = playerOne;
         }
       }
-      return false
-    }
 
-    $(function(){
-      greetPlayers();
+      function checkForWin(){
+        for (var i = 0; i < winningColumns.length; i++){
+          if (spots[winningColumns[i][0]] === spots[winningColumns[i][1]] && spots[winningColumns[i][1]] === spots[winningColumns[i][2]] && spots[winningColumns[i][0]] !== ""){
+            alert(currentUser + " you win!");
+            location.reload();
+            return true
+          }
+        }
+        return false
+      }
 
-      $("button").on("click", function(){
-        takeTurn($(this).attr('id'));
+      function displayUser(){
+        document.getElementById("whichPlayer").innerHTML = currentUser + " , it's your turn!";
+      }
+
+      $(function(){
+        greetPlayers();
+        $("button").on("click", function(){
+          takeTurn($(this).attr('id'));
+        });
       });
-    });
-
-
     </script>
   </head>
   <body>
-    <p>TIC*TAC*TOE</p>
-    <table>
+    <h1>TIC*TAC*TOE</h1>
+    <h2><span id="whichPlayer"></span></h2>
+    <table onClick="displayUser();">
       <tr>
         <td><button type="button" id="a1">:)</button></td>
         <td><button type="button" id="a2">:)</button></td>
